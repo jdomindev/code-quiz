@@ -1,0 +1,150 @@
+<!-- First step is to get questions and answers written in html
+Then proceed to set onclick, move to next question and hide previous question
+Then work on timer functionality when start quiz clicked
+Then work on differentiating right and wrong answer with message
+Then work on add time penalty for wrong answer -->
+
+<!--
+-- Navigation Code 
+- https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-file
+<script>
+    -- function show(shown, hidden) {
+  document.getElementById(shown).style.display='block';
+  document.getElementById(hidden).style.display='none';
+  return false;
+}
+</script>
+</head>
+<body>
+
+  <div id="main-page">
+    "Content of main-page"
+   this should be start quiz button ->  <a href="#" onclick="return show(first-question-page);">Start Quiz</a>
+   add additional link for highscore page that is always there
+  </div>
+    
+{  <div id="first-question-page" style="display:none">
+    "Content of first-question-page"
+    this should be the answer li's button  -> <a href="#" onclick="return show(second-question-page);">Answers to questions</a>
+    add additional link for highscore page that is always there
+  </div> } x4 
+<div id="last-question-page" style="display:none">
+    "Content of last-question-page"
+    this should be the answer li's -> <a href="#" onclick="return show(input-initials-page);">Answers to questions</a>
+    add additional link for highscore page that is always there
+  </div> } x4 
+-- on click will take you to different pages based on where you are 
+-- checking whether they are right or wrong may need to utilize an array where answers are tied to values in an array aka 0 equal wrong and 1 equals right??
+
+- MAIN PAGE
+    - with highscores upper left (takes you to end page aka highscores) (always there)
+    - upper right holds timer defaulted to zero --  (always there)
+    - Intro header and paragraph along with start quiz button
+- ON CLICK of start quiz -> First Question
+    - main page disappears
+    - Timer starts to count down from 60
+    - First question header and 4 button options -> Array of objects each object has question tag, correct answer tag to compare to list of answers[] within object.
+- ON CLICK of submit answer -> Second Question, Third Question,..
+   { - next question header and 4 button options
+    - message appears below button options with string wrong or correct -- disappears after some time
+- ON CLICK = (if wrong)
+    - if wrong subtract x amount of seconds } x4
+- IF TIMER REACHES ZERO, OR ON CLICK OF LAST QUESTION -> Input Page
+- INPUT PAGE
+    - Message with All Done or Game Over
+    - paragraph with final score = timeLeft
+    - Input with submit button for initials
+        - must enter letters (max 3?)
+        - could sort scores by highest to lowest
+- ON CLICK of submit initials button
+    - TimeLeft and Initials get set to local storage as an array of objects (JSONstringify,JSONparse)
+    - button to go back to main page
+        - button to clear highscores
+-->
+
+<!-- GIVEN I am taking a code quiz
+WHEN I click the start button
+THEN a timer starts and I am presented with a question
+WHEN I answer a question
+THEN I am presented with another question
+WHEN I answer a question incorrectly
+THEN time is subtracted from the clock
+WHEN all questions are answered or the timer reaches 0
+THEN the game is over
+WHEN the game is over
+THEN I can save my initials and my score -->
+
+<!-- Content for html
+Question 1: 
+Commonly used data types DO NOT include:
+strings
+booleans
+alerts
+numbers
+Question 2:
+The condition in an if / else statement is enclosed within ___.
+quotes
+curly brackets
+parentheses
+square brackets
+Question 3:
+Arrays in JavaScript can be used to store ___.
+numbers and strings
+other arrays
+booleans
+all of the above
+Question 4:
+String values must be enclosed within ___ when being assigned to variables.
+commas
+curly brackets
+quotes
+parentheses
+Question 5:
+A very useful tool used during development and debugging for printing content to the debugger is:
+JavaScript
+terminal/bash
+for loops
+console.log 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Quiz</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <a class="highscore-button" href="#highscore-page"
+          >View High-Scores</a>
+        <h2 class="time">Time Left:</h2>
+      </header>
+      <section class="pages">
+        <section id="main-page" class="main-section">
+          <h1 class="main-header">Code Quiz</h1>
+          <p class="instructions">
+            Try to answer the following code-related questions within the time
+            limit. Keep in mind that incorrect answers will penalize your score
+            time by x seconds.
+          </p>
+          <button class="start-button">Start Quiz</button>
+        </section>
+
+        <section id="first-question-page" class="main-section hidden">
+          <h2 class="main-header">First Question</h2>
+          <ol>
+            <li class="button">Answer 1</li>
+            <li class="button">Answer 1</li>
+            <li class="button">Answer 1</li>
+            <li class="button">Answer 1</li>
+          </ol>
+        </section>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
