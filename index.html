@@ -74,39 +74,6 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and my score -->
 
-<!-- Content for html
-Question 1: 
-Commonly used data types DO NOT include:
-strings
-booleans
-alerts
-numbers
-Question 2:
-The condition in an if / else statement is enclosed within ___.
-quotes
-curly brackets
-parentheses
-square brackets
-Question 3:
-Arrays in JavaScript can be used to store ___.
-numbers and strings
-other arrays
-booleans
-all of the above
-Question 4:
-String values must be enclosed within ___ when being assigned to variables.
-commas
-curly brackets
-quotes
-parentheses
-Question 5:
-A very useful tool used during development and debugging for printing content to the debugger is:
-JavaScript
-terminal/bash
-for loops
-console.log 
--->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -117,34 +84,34 @@ console.log
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
+    <header class="header">
+      <button class="highscore-btn" href="#highscore-page"
+        >View High-Scores</button>
+      <h2 class="time">Time Left: 60 seconds</h2>
+    </header>
     <main>
-      <header class="header">
-        <a class="highscore-button" href="#highscore-page"
-          >View High-Scores</a>
-        <h2 class="time">Time Left:</h2>
-      </header>
-      <section class="pages">
-        <section id="main-page" class="main-section">
-          <h1 class="main-header">Code Quiz</h1>
-          <p class="instructions">
-            Try to answer the following code-related questions within the time
-            limit. Keep in mind that incorrect answers will penalize your score
-            time by x seconds.
-          </p>
-          <button class="start-button">Start Quiz</button>
+      <section class="container">
+        <section class="question-container hide">
+          <div id="question"></div>
+          <div id="answer-buttons" class="hide">
+            <button class="btn">Answer 1</button>
+            <button class="btn">Answer 2</button>
+            <button class="btn">Answer 3</button>
+            <button class="btn">Answer 4</button>
+          </div>
         </section>
-
-        <section id="first-question-page" class="main-section hidden">
-          <h2 class="main-header">First Question</h2>
-          <ol>
-            <li class="button">Answer 1</li>
-            <li class="button">Answer 1</li>
-            <li class="button">Answer 1</li>
-            <li class="button">Answer 1</li>
-          </ol>
+        <section class="controls">
+          <div id="main-page">
+            <h1 class="main-page-header">Code Quiz</h1>
+            <p class="main-page-p">Try to answer the following code-related questions before the time runs out. Keep in mind that any wrong answers will penalize your time by 10 seconds.</p>
+            <button id="start-button" class="start-button">Start Quiz</button>
+          </div>
+          <div id="next-button" class="next-button hide">Next Question</div>
+          <div id="initials-button" class="hide">Enter Initials</div>
         </section>
+        <section id="initials-page"></section>
       </section>
-    </main>
-    <script src="script.js"></script>
+        
+    <script src="./assets/script.js"></script>
   </body>
 </html>
