@@ -85,7 +85,7 @@ THEN I can save my initials and my score -->
   </head>
   <body>
     <header class="header">
-      <button class="highscore-btn" href="#highscore-page"
+      <button class="high-score-button"
         >View High-Scores</button>
       <h2 class="time">Time Left: 60 seconds</h2>
     </header>
@@ -101,15 +101,26 @@ THEN I can save my initials and my score -->
           </div>
         </section>
         <section class="controls">
-          <div id="main-page">
+          <div id="main-page" class="page">
             <h1 class="main-page-header">Code Quiz</h1>
-            <p class="main-page-p">Try to answer the following code-related questions before the time runs out. Keep in mind that any wrong answers will penalize your time by 10 seconds.</p>
+            <p class="main-page-content">Try to answer the following code-related questions before the time runs out. Keep in mind that any wrong answers will penalize your time by 10 seconds.</p>
             <button id="start-button" class="start-button">Start Quiz</button>
           </div>
           <div id="next-button" class="next-button hide">Next Question</div>
-          <div id="initials-button" class="hide">Enter Initials</div>
         </section>
-        <section id="initials-page"></section>
+        <section id="initials-page" class="page hide">
+          <h2 class="page-content">Game Over</h2>
+          <h3 class="score"></h3>
+          <label for="input">Enter Initials</label>
+          <input type="text">
+          <button id="high-score-button" class="high-score-button">Submit</button>
+        </section>
+        <section id="high-score-page" class="page hide">
+          <h2 class="page-content">High-Scores</h2>
+          <ol id="score-list"></ol>
+          <button class="high-score-button">Return Home</button>
+          <button class="high-score-button">Clear scores</button>
+        </section>
       </section>
         
     <script src="./assets/script.js"></script>

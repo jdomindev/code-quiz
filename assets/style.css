@@ -6,7 +6,7 @@
 
 :root {
     --primary-color: rgb(162, 162, 248);
-    --secondary-color: rgb(255, 255, 255);
+    --secondary-color: rgb(10, 182, 38);
 }
 
 main {
@@ -43,9 +43,6 @@ main {
     margin: 50px;
 }
 
-.question-container {
-}
-
 #question {
     font-size: 1.5rem;
 }
@@ -56,15 +53,29 @@ main {
 }
 
 
-#main-page {
+.page {
     text-align: center;
 }
 
-.main-page-p {
+.main-page-content {
     padding: 10px;
     padding-bottom: 20px;
 }
 
+.page-content {
+padding: 10px;
+}
+
+.score {
+    padding: 10px;
+}
+
+.submit-button {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+}
 
 .start-button, .btn {
     font-weight: bold;
@@ -73,7 +84,7 @@ main {
     background-color: var(--primary-color);
 }
 
-.highscore-btn {
+.high-score-button {
     padding: 5px;
     font-weight: bold;
     border-radius: 10px;
