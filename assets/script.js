@@ -9,7 +9,7 @@ var questions = [
     ]
   },
   {
-    question: "This is a question",
+    question: "This is a question2",
     answers: [
       { text: "answer1", correct: true },
       { text: "answer2", correct: false },
@@ -34,12 +34,12 @@ var questions = [
 var startButton = document.querySelector(".start-button");
 var mainPage = document.querySelector("#main-page");
 var questionContainer = document.querySelector(".question-container")
+var currentQuestion = 0
 
 // function for what happens on click of start quiz
 function startQuiz() {
     mainPage.classList.add("hide");
     questionContainer.classList.remove("hide");
-    currentQuestionIndex = 0;
     setNextQuestion();
 }
 
@@ -74,17 +74,30 @@ var button = document.createElement("button");
 
 // function to set next question to values in array of questions
 function setNextQuestion() {
-  // resetState()
-  questionEl.innerText = question.question
-  questions.answers.forEach(answer, function() {
-    button.innerText = answer.text;
+  resetState()
+  questionEl.innerText = questions[currentQuestion].question
+  questions.answers.forEach(answers, function() {
+    button.innerText = answers.text;
     button.classList.add("btn");
+    if (answers.correct) {
+      button.dataset.correct = answers.correct;
+    }
+    button.addEventListener("click", selectAnswer())
+    answerButtons.appendChild(button)
   })
-
-
 }
 
-// button.addEventListener("click", selectAnswer())
+var nextButton = document.querySelector("#next-button")
+
+// function to hide next button after answer selected and removes answer buttons from previous question
+function resetState() {
+  nextButton.classList.add("hide")
+  while (answerButtons.firstChild) {
+    answerButtons.firstChild.removeChild(answerButtons.firstChild)
+  }
+}
+
+function selectAnswer() {}
 
 
 

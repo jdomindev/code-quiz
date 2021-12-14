@@ -43,9 +43,18 @@ main {
     margin: 50px;
 }
 
-.questions-container {
-
+.question-container {
 }
+
+#question {
+    font-size: 1.5rem;
+}
+
+#question, #answer-buttons {
+    text-align: center;
+    padding: 10px;
+}
+
 
 #main-page {
     text-align: center;
