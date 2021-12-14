@@ -5,8 +5,8 @@ var questions = [
       { text: "strings", correct: false },
       { text: "booleans", correct: false },
       { text: "alerts", correct: true },
-      { text: "numbers", correct: false},
-    ]
+      { text: "numbers", correct: false },
+    ],
   },
   {
     question: "The condition in an if / else statement is enclosed within ___.",
@@ -14,9 +14,9 @@ var questions = [
       { text: "quotes", correct: false },
       { text: "curly brackets", correct: false },
       { text: "parentheses", correct: true },
-      { text: "square brackets", correct: false},
-    ]
-  }
+      { text: "square brackets", correct: false },
+    ],
+  },
 ];
 
 // Look to activity 3 - #21-24 for checking if answer is right or wrong
@@ -30,17 +30,16 @@ var questions = [
 //   }
 // }
 
-
 var startButton = document.querySelector(".start-button");
 var mainPage = document.querySelector("#main-page");
-var questionContainer = document.querySelector(".question-container")
-var currentQuestion = 0
+var questionContainer = document.querySelector(".question-container");
+var currentQuestion = 0;
 
 // function for what happens on click of start quiz
 function startQuiz() {
-    mainPage.classList.add("hide");
-    questionContainer.classList.remove("hide");
-    setNextQuestion();
+  mainPage.classList.add("hide");
+  questionContainer.classList.remove("hide");
+  setNextQuestion();
 }
 
 startButton.addEventListener("click", startQuiz);
@@ -63,8 +62,8 @@ function setTime() {
   }, 1000);
 }
 
-var initialsPage = document.querySelector("#initials-page")
-var score = document.querySelector(".score")
+var initialsPage = document.querySelector("#initials-page");
+var score = document.querySelector(".score");
 
 function setInitialsPage() {
   initialsPage.classList.remove("hide");
@@ -74,13 +73,24 @@ function setInitialsPage() {
 
 var highScoreButton = document.querySelector("#high-score-button");
 
-highScoreButton.addEventListener("click", showHighScores);
+highScoreButton.addEventListener("click", submitInitials);
 
 var highScorePage = document.querySelector("#high-score-page");
+var initials = document.querySelector(".initials");
 
-function showHighScores() {
-  initialsPage.classList.add("hide");
-  highScorePage.classList.remove("hide");
+function submitInitials() {
+  if (initials.value === "") {
+    window.alert("Please enter your initials");
+  } else {
+    initialsPage.classList.add("hide");
+    highScorePage.classList.remove("hide");
+    localStorage.setItem("initials", initials.value);
+    localStorage.setItem("score", score);
+    var initialsEntry = localStorage.getItem("initials")
+    var scoreEntry = localStorage.getItem("score")
+    var scoreList = document.querySelector("#score-list")
+    scoreList.textContent = initialsEntry + " -- " + scoreEntry;
+  }
 }
 
 var questionEl = document.querySelector("#question");
@@ -90,28 +100,24 @@ var button = document.createElement("button");
 // function to set next question to values in array of questions
 function setNextQuestion() {
   // resetState()
-  questionEl.innerText = questions[currentQuestion].question
-  questions.answers.forEach(answers, function(){
+  questionEl.innerText = questions[currentQuestion].question;
+  questions.answers.forEach(answers, function () {
     var button = document.createElement("button");
     button.innerText = answers.text;
     button.classList.add("btn");
-  })
-    
-  }
-  // button.addEventListener("click", selectAnswer())
-  // answerButtons.appendChild(button)
+  });
+}
+// button.addEventListener("click", selectAnswer())
+// answerButtons.appendChild(button)
 
-  // answerButtons.innerText = questions[currentQuestion].answers.text;
-  // button.classList.add("btn");
+// answerButtons.innerText = questions[currentQuestion].answers.text;
+// button.classList.add("btn");
 
-   
-    // if (answers.correct) {
-    //   button.dataset.correct = answers.correct;
-    // }
-    
-    
+// if (answers.correct) {
+//   button.dataset.correct = answers.correct;
+// }
 
-var nextButton = document.querySelector("#next-button")
+var nextButton = document.querySelector("#next-button");
 
 // function to hide next button after answer selected and removes answer buttons from previous question
 // function resetState() {
@@ -144,8 +150,3 @@ var nextButton = document.querySelector("#next-button")
 //   element.textContent.remove("correct")
 //   element.textContent.remove("wrong")
 // }
-
-
-
-
-
