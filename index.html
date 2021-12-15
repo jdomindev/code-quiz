@@ -85,7 +85,7 @@ THEN I can save my initials and my score -->
   </head>
   <body>
     <header class="header">
-      <button class="high-score-button"
+      <button id="view-scores" class="high-score-button"
         >View High-Scores</button>
       <h2 class="time">Time Left: 60 seconds</h2>
     </header>
@@ -94,10 +94,7 @@ THEN I can save my initials and my score -->
         <section class="question-container hide">
           <div id="question">Question</div>
           <div id="answer-buttons">
-            <button class="btn">Answer 1</button>
-            <button class="btn">Answer 2</button>
-            <button class="btn">Answer 3</button>
-            <button class="btn">Answer 4</button>
+            <!-- <button class="btn">Answer 1</button> -->
           </div>
         </section>
         <section class="controls">
@@ -111,16 +108,16 @@ THEN I can save my initials and my score -->
         <section id="initials-page" class="page hide">
           <h2 class="page-content">Game Over</h2>
           <h3 class="score"></h3>
-          <label for="input">Enter Initials</label>
+          <label for="input">Enter Name/Initials</label>
           <input class="initials" type="text">
-          <button id="high-score-button" class="high-score-button">Submit</button>
+          <button id="submit-initials" class="high-score-button">Submit</button>
         </section>
         <section id="high-score-page" class="page hide">
           <h2 class="page-content">High-Scores</h2>
           <ol id="score-list">
           </ol>
-          <button class="high-score-button">Return Home</button>
-          <button class="high-score-button">Clear scores</button>
+          <button id="return-home" class="end-button">Return Home</button>
+          <button id="clear-button" class="end-button">Clear scores</button>
         </section>
       </section>
         

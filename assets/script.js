@@ -17,18 +17,34 @@ var questions = [
       { text: "square brackets", correct: false },
     ],
   },
+  {
+    question: "The condition in an if / else statement is enclosed within ___.",
+    answers: [
+      { text: "quotes", correct: false },
+      { text: "curly brackets", correct: false },
+      { text: "parentheses", correct: true },
+      { text: "square brackets", correct: false },
+    ],
+  },
+  {
+    question: "The condition in an if / else statement is enclosed within ___.",
+    answers: [
+      { text: "quotes", correct: false },
+      { text: "curly brackets", correct: false },
+      { text: "parentheses", correct: true },
+      { text: "square brackets", correct: false },
+    ],
+  },
+  {
+    question: "The condition in an if / else statement is enclosed within ___.",
+    answers: [
+      { text: "quotes", correct: false },
+      { text: "curly brackets", correct: false },
+      { text: "parentheses", correct: true },
+      { text: "square brackets", correct: false },
+    ],
+  }
 ];
-
-// Look to activity 3 - #21-24 for checking if answer is right or wrong
-
-// buttonOne.addEventListener("click", checkAnswer);
-// function checkAnswer() {
-//   if (questions[0].answers[i] === questions[0].correctAnswer) {
-//     console.log(Correct);
-//   } else {
-//     console.log(incorrect);
-//   }
-// }
 
 var startButton = document.querySelector(".start-button");
 var mainPage = document.querySelector("#main-page");
@@ -37,6 +53,7 @@ var currentQuestion = 0;
 
 // function for what happens on click of start quiz
 function startQuiz() {
+  // hides main page and shows the question container
   mainPage.classList.add("hide");
   questionContainer.classList.remove("hide");
   setNextQuestion();
@@ -47,20 +64,59 @@ startButton.addEventListener("click", setTime);
 
 // Timer function
 var timeEl = document.querySelector(".time");
-var secondsLeft = 10;
+var secondsLeft = 60;
 
 function setTime() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = "Time Left: " + secondsLeft + " seconds";
 
-    if (secondsLeft === 0) {
+    if (secondsLeft <= 0 || currentQuestion > questions.length - 1) {
       clearInterval(timerInterval);
       setInitialsPage();
-      // set OR in condition for if last question reached
     }
   }, 1000);
 }
+// 
+var questionEl = document.querySelector("#question");
+var answerButtons = document.querySelector("#answer-buttons");
+
+function findCorrectAnswer(answer) {
+  return answer.correct
+  }
+
+function selectAnswer(event) {
+  var selectedAnswer = event.target.innerText;
+  console.log(event.target);
+ 
+  var correctAnswer = questions[currentQuestion].answers.find(findCorrectAnswer)
+  console.log(correctAnswer);
+  if (selectedAnswer === correctAnswer.text) {
+  window.alert("Correct!")
+  }else {
+  window.alert("Wrong")
+  // subtracts time when wrong
+  secondsLeft = secondsLeft - 10
+  }
+  // removes answer buttons from html after answer is selected
+  answerButtons.innerHTML = ""
+  // makes sure next question in array is mafe
+  currentQuestion++;
+  setNextQuestion();
+}
+
+// function to set next question to values in array of questions
+function setNextQuestion() {
+  // sets which question + answer set will appear
+  for (var i = 0; i < questions[currentQuestion].answers.length; i++) {
+  var answerButton = document.createElement("button");
+  answerButton.setAttribute("class", "btn");
+  answerButton.addEventListener("click", function(event){selectAnswer(event)});
+  questionEl.innerText = questions[currentQuestion].question;
+  answerButton.innerText = questions[currentQuestion].answers[i].text;
+  answerButtons.appendChild(answerButton);
+  }
+};
 
 var initialsPage = document.querySelector("#initials-page");
 var score = document.querySelector(".score");
@@ -71,82 +127,66 @@ function setInitialsPage() {
   score.innerText = "Your final score was " + secondsLeft;
 }
 
-var highScoreButton = document.querySelector("#high-score-button");
+var initialsButton = document.querySelector("#submit-initials");
 
-highScoreButton.addEventListener("click", submitInitials);
+initialsButton.addEventListener("click", submitInitials);
 
 var highScorePage = document.querySelector("#high-score-page");
-var initials = document.querySelector(".initials");
+
 
 function submitInitials() {
-  if (initials.value === "") {
-    window.alert("Please enter your initials");
+  var initials = document.querySelector(".initials").value;
+  if (initials === "") {
+    window.alert("Please enter your name/initials");
   } else {
+    // hide initials page and go to high-score page
     initialsPage.classList.add("hide");
     highScorePage.classList.remove("hide");
-    localStorage.setItem("initials", initials.value);
-    localStorage.setItem("score", score);
-    var initialsEntry = localStorage.getItem("initials")
-    var scoreEntry = localStorage.getItem("score")
-    var scoreList = document.querySelector("#score-list")
-    scoreList.textContent = initialsEntry + " -- " + scoreEntry;
+    // value of score is secondsLeft
+    // grab value of initials input + score
+    
+    var userScore = {initials: initials, score: secondsLeft};
+    
+  // set values to local storage
+    localStorage.setItem("userScore", JSON.stringify(userScore));
+    getInitials();
   }
 }
+// var initialsEntry = localStorage.getItem("initials")
+//     var scoreEntry = localStorage.getItem("score")
 
-var questionEl = document.querySelector("#question");
-var answerButtons = document.querySelector("#answer-buttons");
-var button = document.createElement("button");
-
-// function to set next question to values in array of questions
-function setNextQuestion() {
-  // resetState()
-  questionEl.innerText = questions[currentQuestion].question;
-  questions.answers.forEach(answers, function () {
-    var button = document.createElement("button");
-    button.innerText = answers.text;
-    button.classList.add("btn");
-  });
+function getInitials() {
+  // retrieve values from local storage
+    var lastEntry = JSON.parse(localStorage.getItem("userScore"));
+// Appends values from storage into list 
+    var scoreList = document.querySelector("#score-list")
+    var li = document.createElement("li")
+    var scoreListLi = scoreList.appendChild(li);
+    scoreListLi.textContent = lastEntry.initials + " -- " + lastEntry.score;
 }
-// button.addEventListener("click", selectAnswer())
-// answerButtons.appendChild(button)
 
-// answerButtons.innerText = questions[currentQuestion].answers.text;
-// button.classList.add("btn");
+// function to view scores from main page or while on question container
+var viewScores = document.querySelector("#view-scores")
 
-// if (answers.correct) {
-//   button.dataset.correct = answers.correct;
-// }
+viewScores.addEventListener("click", function(){
+  mainPage.classList.add("hide");
+  questionContainer.classList.add("hide");
+  highScorePage.classList.remove("hide");
+  })
 
-var nextButton = document.querySelector("#next-button");
+// function to return to main page from highscores page
+var homeButton = document.querySelector("#return-home")
 
-// function to hide next button after answer selected and removes answer buttons from previous question
-// function resetState() {
-//   nextButton.classList.add("hide")
-//   while (answerButtons.firstChild) {
-//     answerButtons.firstChild.removeChild(answerButtons.firstChild)
-//   }
-// }
+homeButton.addEventListener("click", function(){
+  highScorePage.classList.add("hide");
+  mainPage.classList.remove("hide");
+  clearInterval(timerInterval);
+  currentQuestion = 0;
+  })
 
-// function selectAnswer(event) {
-//   var selectedAnswer = event.target;
-//   var correct = selectedAnswer.dataset.correct;
-//   setStatusClass(document.body, correct)
-//   Array.from(answerButtons.children).forEach(button, function(){
-//     setStatusClass(button, button.dataset.correct)
-//   })
-// }
+// event listener for clear button to clear scores
+var clearButton = document.querySelector("#clear-button")
 
-// function setStatusClass(element,correct) {
-//   clearStatusClass(element)
-//   if (correct) {
-//     element.textContent("correct")
-//   }else {
-//     element.textContent("wrong")
-//     // add something to subtract time
-//   }
-// }
-
-// function clearStatusClass(element) {
-//   element.textContent.remove("correct")
-//   element.textContent.remove("wrong")
-// }
+clearButton.addEventListener("click", function(){
+  userScore.innerText = ""
+});
