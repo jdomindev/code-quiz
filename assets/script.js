@@ -18,30 +18,30 @@ var questions = [
     ],
   },
   {
-    question: "The condition in an if / else statement is enclosed within ___.",
+    question: "Arrays in JavaScript can be used to store ___.",
     answers: [
-      { text: "quotes", correct: false },
-      { text: "curly brackets", correct: false },
-      { text: "parentheses", correct: true },
-      { text: "square brackets", correct: false },
+      { text: "numbers and strings", correct: false },
+      { text: "other arrays", correct: false },
+      { text: "booleans", correct: false },
+      { text: "all of the above", correct: true },
     ],
   },
   {
-    question: "The condition in an if / else statement is enclosed within ___.",
+    question: "String values must be enclosed within ___ when being assigned to variables.",
     answers: [
-      { text: "quotes", correct: false },
+      { text: "commas", correct: false },
       { text: "curly brackets", correct: false },
-      { text: "parentheses", correct: true },
-      { text: "square brackets", correct: false },
+      { text: "quotes", correct: true },
+      { text: "parentheses", correct: false },
     ],
   },
   {
-    question: "The condition in an if / else statement is enclosed within ___.",
+    question: "A very useful tool used during development and debugging for printing content to the debugger is:",
     answers: [
-      { text: "quotes", correct: false },
-      { text: "curly brackets", correct: false },
-      { text: "parentheses", correct: true },
-      { text: "square brackets", correct: false },
+      { text: "JavaScript", correct: false },
+      { text: "terminal/bash", correct: false },
+      { text: "for loops", correct: false },
+      { text: "console.log", correct: true },
     ],
   }
 ];
@@ -100,7 +100,7 @@ function selectAnswer(event) {
   }
   // removes answer buttons from html after answer is selected
   answerButtons.innerHTML = ""
-  // makes sure next question in array is mafe
+  // makes sure next question in array is set
   currentQuestion++;
   setNextQuestion();
 }
@@ -132,7 +132,7 @@ var initialsButton = document.querySelector("#submit-initials");
 initialsButton.addEventListener("click", submitInitials);
 
 var highScorePage = document.querySelector("#high-score-page");
-
+var allUserScores = []
 
 function submitInitials() {
   var initials = document.querySelector(".initials").value;
@@ -146,24 +146,27 @@ function submitInitials() {
     // grab value of initials input + score
     
     var userScore = {initials: initials, score: secondsLeft};
-    
+    allUserScores.unshift(userScore);
   // set values to local storage
-    localStorage.setItem("userScore", JSON.stringify(userScore));
+    localStorage.setItem("allUserScores", JSON.stringify(allUserScores));
     getInitials();
   }
 }
-// var initialsEntry = localStorage.getItem("initials")
-//     var scoreEntry = localStorage.getItem("score")
 
 function getInitials() {
   // retrieve values from local storage
-    var lastEntry = JSON.parse(localStorage.getItem("userScore"));
+    var lastEntry = JSON.parse(localStorage.getItem("allUserScores"));
 // Appends values from storage into list 
     var scoreList = document.querySelector("#score-list")
-    var li = document.createElement("li")
-    var scoreListLi = scoreList.appendChild(li);
-    scoreListLi.textContent = lastEntry.initials + " -- " + lastEntry.score;
+    scoreList.textContent = lastEntry[0].initials + " -- " + lastEntry[0].score;
 }
+
+// event listener for clear button to clear scores
+var clearButton = document.querySelector("#clear-button")
+
+clearButton.addEventListener("click", function(){
+  allUserScores.innerText = ""
+});
 
 // function to view scores from main page or while on question container
 var viewScores = document.querySelector("#view-scores")
@@ -180,13 +183,7 @@ var homeButton = document.querySelector("#return-home")
 homeButton.addEventListener("click", function(){
   highScorePage.classList.add("hide");
   mainPage.classList.remove("hide");
-  clearInterval(timerInterval);
+  secondsLeft = 60;
   currentQuestion = 0;
   })
 
-// event listener for clear button to clear scores
-var clearButton = document.querySelector("#clear-button")
-
-clearButton.addEventListener("click", function(){
-  userScore.innerText = ""
-});

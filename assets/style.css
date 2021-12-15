@@ -5,8 +5,8 @@
 }
 
 :root {
-    --primary-color: rgb(162, 162, 248);
-    --secondary-color: rgb(10, 182, 38);
+    --primary-color: rgb(79, 79, 233);
+    --secondary-color: rgb(255, 255, 255);
     --tertiary-color: rgb(156, 156, 156);
     --quaternary-color: white;
 }
